@@ -16,9 +16,9 @@ sys.stdout = open(output_file, 'w', encoding='utf-8')
 # 3. Cargar el archivo Excel
 # ============================
 # Cambia la ruta por la de tu archivo
-ruta_archivo = r"C:\Users\gtorr\Desktop\Universidad\malakaton\malackathon2025\SaludMental.xls"
+ruta_archivo = r"C:\Users\gtorr\Desktop\Universidad\malakaton\malackathon2025\SaludMental_cifrado.xlsx"
 # Especificar el engine para archivos .xls
-df = pd.read_excel(ruta_archivo, engine='xlrd')
+df = pd.read_excel(ruta_archivo)
 
 # ============================
 # 4. Vista general del dataset
