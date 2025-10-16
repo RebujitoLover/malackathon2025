@@ -3,16 +3,25 @@
 # ============================
 import pandas as pd
 import numpy as np
+import sys
 
 # ============================
-# 2. Cargar el archivo Excel
+# 2. Configurar salida a archivo
+# ============================
+# Crear archivo de salida
+output_file = r"C:\Users\gtorr\Desktop\Universidad\malakaton\malackathon2025\analisis_salud_mental.txt"
+sys.stdout = open(output_file, 'w', encoding='utf-8')
+
+# ============================
+# 3. Cargar el archivo Excel
 # ============================
 # Cambia la ruta por la de tu archivo
-ruta_archivo = "SaludMental.xls"  # Puede ser .xls o .xlsx
-df = pd.read_excel(ruta_archivo)
+ruta_archivo = r"C:\Users\gtorr\Desktop\Universidad\malakaton\malackathon2025\SaludMental.xls"
+# Especificar el engine para archivos .xls
+df = pd.read_excel(ruta_archivo, engine='xlrd')
 
 # ============================
-# 3. Vista general del dataset
+# 4. Vista general del dataset
 # ============================
 print("=== DIMENSIONES DEL DATAFRAME ===")
 print(df.shape)
@@ -21,7 +30,7 @@ print("\n=== PRIMERAS FILAS ===")
 print(df.head())
 
 # ============================
-# 4. Tipos de datos
+# 5. Tipos de datos
 # ============================
 print("\n=== TIPOS DE DATOS ===")
 print(df.dtypes)
@@ -40,13 +49,13 @@ for col in df.columns:
     print(f"{col}: {tipo}")
 
 # ============================
-# 5. Valores nulos
+# 6. Valores nulos
 # ============================
 print("\n=== VALORES NULOS POR COLUMNA ===")
 print(df.isnull().sum())
 
 # ============================
-# 6. Estadísticos básicos
+# 7. Estadísticos básicos
 # ============================
 print("\n=== ESTADÍSTICOS DESCRIPTIVOS NUMÉRICOS ===")
 print(df.describe())
@@ -57,7 +66,7 @@ for col in df.select_dtypes(include=['object', 'category']):
     print(df[col].value_counts(dropna=False))
 
 # ============================
-# 7. Detección de Outliers (Método IQR)
+# 8. Detección de Outliers (Método IQR)
 # ============================
 print("\n=== DETECCIÓN DE OUTLIERS (IQR) ===")
 for col in df.select_dtypes(include=[np.number]):
@@ -67,3 +76,8 @@ for col in df.select_dtypes(include=[np.number]):
     outliers = df[(df[col] < Q1 - 1.5 * IQR) | (df[col] > Q3 + 1.5 * IQR)]
     print(f"\n{col}: {len(outliers)} posibles outliers")
 
+# ============================
+# 9. Cerrar archivo de salida
+# ============================
+sys.stdout.close()
+print("Análisis completado y guardado en: analisis_salud_mental.txt", file=sys.__stdout__)
